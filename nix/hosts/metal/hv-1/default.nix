@@ -47,6 +47,11 @@
       fsType = "nfs";
       options = [ "nfsvers=4.2" "hard" "noatime" "rw" "defaults" ];
     };
+    "/mnt/nfs/gallery" = {
+      device = "truenas.internal:/mnt/tank/gallery";
+      fsType = "nfs";
+      options = [ "nfsvers=4.2" "hard" "noatime" "rw" "defaults" ];
+    };
     "/mnt/nfs/git" = {
       device = "truenas.internal:/mnt/tank/git";
       fsType = "nfs";
