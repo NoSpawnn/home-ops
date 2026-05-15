@@ -1,0 +1,22 @@
+[Unit]
+Description=Uptime-Kuma server
+ 
+[Container]
+ContainerName=uptime-kuma
+Image=docker.io/louislam/uptime-kuma:2
+AutoUpdate=registry
+ 
+HealthCmd=curl http://127.0.0.1:3001
+UserNS=keep-id
+ 
+Network=services.network
+HostName=uptime-kuma
+ 
+Volume=%h/.config/containers/storage/uptime-kuma:/app/data
+ 
+[Service]
+Restart=always
+TimeoutStartSec=300
+ 
+[Install]
+WantedBy=default.target

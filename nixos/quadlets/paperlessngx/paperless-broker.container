@@ -1,0 +1,10 @@
+[Unit]
+Description=Paperless NGX broker
+
+[Container]
+Pod=paperlessngx.pod
+ContainerName=paperlessngx-broker
+Image=docker.io/library/redis:8
+AutoUpdate=registry
+
+Volume=%h/localappdata/paperlessngx/broker-data:/data

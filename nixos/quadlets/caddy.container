@@ -1,0 +1,25 @@
+[Unit]
+Description=Caddy web server
+ 
+[Container]
+ContainerName=caddy
+Image=docker.io/serfriz/caddy-cloudflare:latest
+#Image=docker.io/caddy/caddy:latest
+AutoUpdate=registry
+NoNewPrivileges=true
+Volume=/mnt/nfs/appdata/caddy:/etc/caddy
+ 
+#UserNS=keep-id
+ 
+Network=services.network
+HostName=caddy
+PublishPort=443:443
+PublishPort=443:443/udp
+PublishPort=80:80
+ 
+[Service]
+Restart=always
+TimeoutStartSec=300
+ 
+[Install]
+WantedBy=default.target

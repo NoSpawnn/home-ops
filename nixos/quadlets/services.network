@@ -1,0 +1,12 @@
+[Unit]
+Description=Services network
+After=podman-user-wait-network-online.service
+ 
+[Network]
+NetworkName=services
+Subnet=10.90.0.0/24
+Gateway=10.90.0.1
+DNS=10.10.10.1
+ 
+[Install]
+WantedBy=default.target

@@ -1,0 +1,18 @@
+[Unit]
+Description=Paperless NGX server
+
+[Container]
+Pod=paperlessngx.pod
+ContainerName=paperlessngx-server
+Image=ghcr.io/paperless-ngx/paperless-ngx:latest
+
+#Environment=USERMAP_UID=1000
+#Environment=USERMAP_GID=1000
+
+Environment=PAPERLESS_URL="https://documents.nospawnn.com"
+Environment=PAPERLESS_REDIS="redis://paperlessngx-broker:6379"
+
+Volume=/mnt/nfs/appdata/paperlessngx/data:/usr/src/paperless/data
+Volume=/mnt/nfs/appdata/paperlessngx/media:/usr/src/paperless/media
+Volume=/mnt/nfs/appdata/paperlessngx/export:/usr/src/paperless/export
+Volume=/mnt/nfs/appdata/paperlessngx/consume:/usr/src/paperless/consume
