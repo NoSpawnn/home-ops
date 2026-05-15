@@ -52,6 +52,9 @@
             packages = with pkgs; [
               nixd
               nil
+              age
+              sops
+              ssh-to-age
               self.formatter.${system}
             ];
           };
