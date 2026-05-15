@@ -8,9 +8,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_unprivileged_port_start" = 80;
-  };
+  boot.kernel.sysctl = { "net.ipv4.ip_unprivileged_port_start" = 80; };
 
   networking.hostName = "hv-1";
   networking.firewall = {
@@ -28,11 +26,6 @@
       packages = with pkgs; [  ];
       openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ Main" ];
     };
-    #svc = {
-    #  isNormalUser = true;
-    #  extraGroups = [ "podman" ];
-    #  linger = true;
-    #};
     services = {
       isNormalUser = true;
       extraGroups = [ "podman" ];
@@ -64,6 +57,7 @@
   environment.systemPackages = with pkgs; [
     vim
     tmux
+    git
     dnsutils
     wget
   ];
@@ -78,10 +72,6 @@
     "nix-command"
     "flakes"
   ];
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
 
   virtualisation = {
     containers.enable = true;
