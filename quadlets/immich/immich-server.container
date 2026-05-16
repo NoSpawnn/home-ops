@@ -1,3 +1,7 @@
+[Unit]
+Description=Immich server
+Requires=immich-db.service immich-redis.service
+
 [Service]
 EnvironmentFile=%E/containers/systemd/immich/.env
 
@@ -5,6 +9,11 @@ EnvironmentFile=%E/containers/systemd/immich/.env
 Pod=immich.pod
 ContainerName=%N
 Image=ghcr.io/immich-app/immich-server:release
+NoNewPrivileges=true
 
+EnvironmentFile=%E/containers/systemd/immich/.env
 Volume=${UPLOAD_LOCATION}:/data:rw
 Volume=/etc/localtime:/etc/localtime:ro
+
+[Service]
+TimeoutStartSec=900

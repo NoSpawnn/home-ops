@@ -1,9 +1,14 @@
+[Service]
+Description=Immich redis
+
 [Container]
 Pod=immich.pod
 ContainerName=%N
-Image=docker.io/valkey/valkey@sha256:81db6d39e1bba3b3ff32bd3a1b19a6d69690f94a3954ec131277b9a26b95b3aa
+Image=docker.io/valkey/valkey:9@sha256:3b55fbaa0cd93cf0d9d961f405e4dfcc70efe325e2d84da207a0a8e6d8fde4f9
+NoNewPrivileges=true
 
 HealthCmd=redis-cli ping || exit 1
 HealthTimeout=30s
 
-
+[Service]
+TimeoutStartSec=900

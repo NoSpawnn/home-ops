@@ -1,8 +1,16 @@
+[Unit]
+Description=Immich Machine Learning
+
 [Container]
 Pod=immich.pod
 ContainerName=immich-ml
 Image=ghcr.io/immich-app/immich-machine-learning:release
-
-EnvironmentFile=%Y/.env
+NoNewPrivileges=true
 
 Volume=%h/localappdata/immich/ml-model-cache:/cache:rw
+Volume=%h/localappdata/immich/ml-model-dotcache:/usr/src/.cache:rw
+Volume=%h/localappdata/immich/ml-config:/usr/src/.config:rw
+
+[Service]
+EnvironmentFile=%E/containers/systemd/immich/.env
+TimeoutStartSec=900
