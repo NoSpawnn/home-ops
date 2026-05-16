@@ -5,7 +5,7 @@ keys:
   - &server_hv-1-services age18qkfaaw3zx364zydj9tjtmafgqastraktpaur2gkf202rqsg0dxq0ezxdr
 
 creation_rules:
-  - path_regex: user_keys\.yaml
+  - path_regex: .*\.enc.json
     key_groups:
       - age:
           - *me
