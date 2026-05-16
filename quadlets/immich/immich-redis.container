@@ -1,0 +1,9 @@
+[Container]
+Pod=immich.pod
+ContainerName=%N
+Image=docker.io/valkey/valkey@sha256:81db6d39e1bba3b3ff32bd3a1b19a6d69690f94a3954ec131277b9a26b95b3aa
+
+HealthCmd=redis-cli ping || exit 1
+HealthTimeout=30s
+
+

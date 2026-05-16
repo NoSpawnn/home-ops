@@ -1,0 +1,4 @@
+[Pod]
+PodName=immich
+Network=services.network
+UserNS=keep-id

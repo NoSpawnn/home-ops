@@ -3,6 +3,7 @@
 {
   imports =
     [
+      ../../modules/secrets.nix
       ./hardware-configuration.nix
     ];
 
@@ -59,12 +60,14 @@
     };
   };
 
+  environment.variables = { "EDITOR" = "vim"; };
   environment.systemPackages = with pkgs; [
     vim
     tmux
     git
     dnsutils
     wget
+    borgbackup
   ];
 
   services.tailscale.enable = true;
@@ -84,7 +87,7 @@
       enable = true;
     };
   };
-  
+
   system.stateVersion = "25.11";
 }
 

@@ -1,0 +1,16 @@
+[Service]
+EnvironmentFile=%E/containers/systemd/immich/.env
+
+[Container]
+Pod=immich.pod
+ContainerName=%N
+Image=ghcr.io/immich-app/postgres@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
+
+Environment=POSTGRES_PASSWORD=${DB_PASSWORD}
+Environment=POSTGRES_USER=${DB_USERNAME}
+Environment=POSTGRES_DB=${DB_DATABASE_NAME}
+Environment=POSTGRES_INIT_DB_ARGS=--data-checksums
+
+Volume=%h/localappdata/immich/db:/var/lib/postgresql/data:rw
+
+ShmSize=128m

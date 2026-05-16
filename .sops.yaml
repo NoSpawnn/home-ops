@@ -1,8 +1,7 @@
 keys:
   - &me age1nam925v0clssuyafyurygunzpm6h9vddlx75mctqlc8a38q2nf7qd48s6l
 
-  - &server_hv-1-admin age16ze0q6h74qcghw2kth7gmm2htsk94arm7zazf4auzjdmfnqqeyhsfs2q2n
-  - &server_hv-1-services age18qkfaaw3zx364zydj9tjtmafgqastraktpaur2gkf202rqsg0dxq0ezxdr
+  - &server_hv-1 age16ze0q6h74qcghw2kth7gmm2htsk94arm7zazf4auzjdmfnqqeyhsfs2q2n
 
 creation_rules:
   - path_regex: .*\.enc.json
@@ -14,5 +13,4 @@ creation_rules:
     key_groups:
       - age:
           - *me
-          - *server_hv-1-admin
-          - *server_hv-1-services
+          - *server_hv-1

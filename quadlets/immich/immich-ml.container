@@ -1,0 +1,8 @@
+[Container]
+Pod=immich.pod
+ContainerName=immich-ml
+Image=ghcr.io/immich-app/immich-machine-learning:release
+
+EnvironmentFile=%Y/.env
+
+Volume=%h/localappdata/immich/ml-model-cache:/cache:rw

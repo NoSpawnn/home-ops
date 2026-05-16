@@ -1,0 +1,10 @@
+[Service]
+EnvironmentFile=%E/containers/systemd/immich/.env
+
+[Container]
+Pod=immich.pod
+ContainerName=%N
+Image=ghcr.io/immich-app/immich-server:release
+
+Volume=${UPLOAD_LOCATION}:/data:rw
+Volume=/etc/localtime:/etc/localtime:ro

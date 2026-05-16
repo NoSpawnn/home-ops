@@ -47,9 +47,16 @@ in
       force = true;
     };
   };
-  systemd.user.tmpfiles.rules = map (
-    p: "d ${p} 0700 ${config.home.username} users -"
-  ) localappdataHostPaths;
+  systemd.user.tmpfiles.rules =
+    (map (p: "d ${p} 0700 ${config.home.username} users -") localappdataHostPaths);
+
+  #sops = {
+  #  secrets.immich = {
+  #    sopsFile = "${quadletsRoot}/immich/secret.env";
+  #    path = "${config.home.homeDirectory}/.config/containers/systemd/immich/.env";
+  #    format = "dotenv";
+  #  };
+  #};
 
   programs.home-manager.enable = true;
   home.stateVersion = "25.11";

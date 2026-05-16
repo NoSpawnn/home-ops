@@ -13,6 +13,7 @@
       self,
       nixpkgs,
       home-manager,
+      sops-nix,
       ...
     }@inputs:
 
@@ -33,20 +34,23 @@
             pkgs = import inputs.nixpkgs { inherit system; };
           }
         );
+
+      quadletsRoot = ../quadlets;
     in
     {
       nixosConfigurations = {
         hv-1 = lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs.flake-inputs = inputs;
+          specialArgs = { flake-inputs = inputs; inherit quadletsRoot; };
           modules = [
             ./nix/hosts/metal/hv-1
+            sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs quadletsRoot; };
               home-manager.users.services = ./nix/users/services.nix;
             }
           ];
