@@ -63,6 +63,8 @@
               age
               sops
               ssh-to-age
+              lazygit
+              just
               self.formatter.${system}
             ];
           };
