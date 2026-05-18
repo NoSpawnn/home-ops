@@ -14,7 +14,7 @@
   networking.hostName = "hv-1";
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 80 443 ];
+    allowedTCPPorts = [ 80 443 222 ];
   };
   networking.networkmanager.enable = true;
 
