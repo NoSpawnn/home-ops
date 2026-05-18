@@ -66,6 +66,7 @@
               sops
               ssh-to-age
               lazygit
+              podlet
               just
               self.formatter.${system}
             ];
