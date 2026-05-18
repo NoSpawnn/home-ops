@@ -3,7 +3,7 @@ Description=Immich Machine Learning
 
 [Container]
 Pod=immich.pod
-ContainerName=immich-ml
+ContainerName=%N
 Image=ghcr.io/immich-app/immich-machine-learning:release
 NoNewPrivileges=true
 
