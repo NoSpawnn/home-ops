@@ -2,8 +2,6 @@
 Description=Immich server
 Requires=immich-db.service immich-redis.service
 
-[Service]
-EnvironmentFile=%E/containers/systemd/immich/.env
 
 [Container]
 Pod=immich.pod
@@ -16,4 +14,5 @@ Volume=${UPLOAD_LOCATION}:/data:rw
 Volume=/etc/localtime:/etc/localtime:ro
 
 [Service]
+EnvironmentFile=%E/containers/systemd/immich/.env
 TimeoutStartSec=900
