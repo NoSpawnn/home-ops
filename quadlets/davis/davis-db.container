@@ -1,0 +1,14 @@
+[Container]
+ContainerName=%N
+Pod=davis.pod
+Image=mariadb:10.6.10
+
+Environment=MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD} 
+Environment=MYSQL_DATABASE=${DB_DATABASE} 
+Environment=MYSQL_USER=${DB_USER}
+Environment=MYSQL_PASSWORD=${DB_PASSWORD}
+
+Volume=/mnt/nfs/appdata/dav/database:/var/lib/mysql
+
+[Service]
+EnvironmentFile=%E/containers/systemd/davis/.env

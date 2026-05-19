@@ -1,0 +1,19 @@
+[Unit]
+Description=Davis web server
+Requires=davis-app.service
+After=davis-app.service
+ 
+[Container]
+Pod=davis.pod
+ContainerName=%N
+Image=docker.io/caddy:latest
+AutoUpdate=registry
+NoNewPrivileges=true
+
+Volume=%E/containers/systemd/davis/Caddyfile:/etc/caddy/Caddyfile
+Volume=davis-www:/var/www/davis/public
+ 
+[Service]
+Restart=always
+TimeoutStartSec=300
+
