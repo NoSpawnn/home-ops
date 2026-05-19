@@ -11,6 +11,7 @@ Environment=DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@127.0.0.1:3306/${DB_D
 Volume=davis-data:/data
 Volume=davis-www:/var/www/davis/public
 Volume=davis-var:/var/www/davis/var
+Volume=/mnt/nfs/appdata/dav/webdav:/webdav/public
 
 [Service]
 EnvironmentFile=%E/containers/systemd/davis/.env
