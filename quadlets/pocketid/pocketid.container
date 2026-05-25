@@ -1,0 +1,22 @@
+[Container]
+ContainerName=%N
+Network=services.network
+UserNS=keep-id
+Image=ghcr.io/pocket-id/pocket-id:v2
+Volume=/mnt/nfs/appdata/pocketid/data:/app/data
+Volume=/mnt/nfs/appdata/pocketid/encryption_key:/run/encryption_key:ro
+
+HealthCmd=/app/pocket-id healthcheck
+HealthInterval=1m30s
+HealthTimeout=5s
+HealthRetries=2
+HealthStartPeriod=10s
+
+Environment=APP_URL=https://id.nospawnn.com
+Environment=ENCRYPTION_KEY_FILE=/run/encryption_key
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
