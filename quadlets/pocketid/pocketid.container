@@ -13,6 +13,7 @@ HealthRetries=2
 HealthStartPeriod=10s
 
 Environment=APP_URL=https://id.nospawnn.com
+Environment=TRUST_PROXY=true
 Environment=ENCRYPTION_KEY_FILE=/run/encryption_key
 
 [Service]
