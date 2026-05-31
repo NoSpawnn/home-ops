@@ -1,3 +1,4 @@
 .agekey
 age_keys.json
 *.swp
+.direnv
