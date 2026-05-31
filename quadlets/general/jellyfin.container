@@ -1,6 +1,6 @@
 [Container]
 ContainerName=%N
-#Network=services.network
+Network=services.network
 Image=docker.io/jellyfin/jellyfin:latest
 UserNS=keep-id
 PublishPort=9007:8096

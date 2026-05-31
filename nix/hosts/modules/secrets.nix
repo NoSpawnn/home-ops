@@ -10,12 +10,12 @@
       "immich.env" = {
         sopsFile = ../../../quadlets/immich/secret.env;
         format = "dotenv";
-        owner = "immich";
+        owner = "services";
       };
       "davis.env" = {
         sopsFile = ../../../quadlets/dav/secret.env;
         format = "dotenv";
-        owner = "dav";
+        owner = "services";
       };
     };
   };

@@ -1,5 +1,5 @@
 [Pod]
 PodName=immich
-#Network=services.network
+Network=services.network
 UserNS=keep-id
 PublishPort=9003:2283
