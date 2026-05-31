@@ -46,7 +46,7 @@
           system = "x86_64-linux";
           specialArgs.flake-inputs = inputs;
           modules = [
-            ./nix/hosts/metal/hv-1
+            ./machines/metal/hv-1
             sops-nix.nixosModules.sops
             quadmanix.nixosModules.quadmanix
             home-manager.nixosModules.home-manager
@@ -58,7 +58,7 @@
                 sops-nix.homeManagerModules.sops
               ];
               home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users = import ./nix/quadlet_users.nix { };
+              home-manager.users = import ./machines/metal/hv-1/users/services.nix { };
             }
           ];
         };

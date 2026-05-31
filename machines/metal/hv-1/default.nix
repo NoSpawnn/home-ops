@@ -3,7 +3,7 @@
 {
   imports =
     [
-      ../../modules/secrets.nix
+      ./quadlets/secrets.nix
       ./hardware-configuration.nix
     ];
 
