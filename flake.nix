@@ -1,11 +1,15 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+
     home-manager.url = "github:nix-community/home-manager/release-25.11";
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    quadmanix.url = "github:NoSpawnn/quadmanix";
+    quadmanix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -14,6 +18,7 @@
       nixpkgs,
       home-manager,
       sops-nix,
+      quadmanix,
       ...
     }@inputs:
 
@@ -43,13 +48,17 @@
           modules = [
             ./nix/hosts/metal/hv-1
             sops-nix.nixosModules.sops
+            quadmanix.nixosModules.quadmanix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
+              home-manager.sharedModules = [
+                quadmanix.homeManagerModules.quadmanix
+                sops-nix.homeManagerModules.sops
+              ];
               home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.services = ./nix/users/services.nix;
+              home-manager.users = import ./nix/quadlet_users.nix { };
             }
           ];
         };

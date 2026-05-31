@@ -1,4 +1,0 @@
-[Pod]
-UserNS=keep-id
-Network=services.network
-PodName=paperlessngx

@@ -2,5 +2,6 @@
 Image=leomoonstudios/wiki-go:latest
 ContainerName=wiki
 Volume=/mnt/nfs/appdata/wiki:/wiki/data
+PublishPort=9005:8080
 UserNS=keep-id
-Network=services.network
+#Network=services.network

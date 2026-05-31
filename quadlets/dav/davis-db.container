@@ -11,4 +11,4 @@ Environment=MYSQL_PASSWORD=${DB_PASSWORD}
 Volume=/mnt/nfs/appdata/dav/database:/var/lib/mysql
 
 [Service]
-EnvironmentFile=%E/containers/systemd/davis/.env
+EnvironmentFile=/run/secrets/davis.env

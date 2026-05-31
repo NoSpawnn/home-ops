@@ -1,0 +1,18 @@
+[Container]
+ContainerName=%N
+#Network=services.network
+Image=docker.io/jellyfin/jellyfin:latest
+UserNS=keep-id
+PublishPort=9007:8096
+
+AddDevice=/dev/dri/:/dev/dri/
+
+Volume=/mnt/nfs/appdata/jellyfin/config:/config:Z
+Volume=jellyfin-cache:/cache:Z
+Volume=/mnt/nfs/media:/media:Z
+
+[Service]
+SuccessExitStatus=0 143
+
+[Install]
+WantedBy=default.target

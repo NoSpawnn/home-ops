@@ -7,10 +7,10 @@ ContainerName=%N
 Image=ghcr.io/immich-app/immich-machine-learning:release
 NoNewPrivileges=true
 
-Volume=%h/localappdata/immich/ml-model-cache:/cache:rw
-Volume=%h/localappdata/immich/ml-model-dotcache:/usr/src/.cache:rw
-Volume=%h/localappdata/immich/ml-config:/usr/src/.config:rw
+Volume=ml-model-cache:/cache:rw
+Volume=ml-model-dotcache:/usr/src/.cache:rw
+Volume=ml-config:/usr/src/.config:rw
 
 [Service]
-EnvironmentFile=%E/containers/systemd/immich/.env
+EnvironmentFile=/run/secrets/immich.env
 TimeoutStartSec=900

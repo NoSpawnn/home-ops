@@ -1,0 +1,5 @@
+[Pod]
+UserNS=keep-id
+#Network=services.network
+PodName=paperlessngx
+PublishPort=9001:8000

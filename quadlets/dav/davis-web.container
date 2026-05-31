@@ -10,7 +10,7 @@ Image=docker.io/caddy:latest
 AutoUpdate=registry
 NoNewPrivileges=true
 
-Volume=%E/containers/systemd/davis/Caddyfile:/etc/caddy/Caddyfile
+Volume=%E/containers/systemd/Caddyfile:/etc/caddy/Caddyfile
 Volume=davis-www:/var/www/davis/public
  
 [Service]

@@ -3,7 +3,7 @@ ContainerName=%N
 Pod=davis.pod
 Image=ghcr.io/tchapi/davis:5.4.1
 
-EnvironmentFile=%E/containers/systemd/davis/.env
+EnvironmentFile=/run/secrets/davis.env
 Environment=DATABASE_DRIVER=mysql
 Environment=DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@127.0.0.1:3306/${DB_DATABASE}?serverVersion=mariadb-10.6.10&charset=utf8mb4
 #Environment=MAILER_DSN=smtp://${MAIL_USERNAME}:${MAIL_PASSWORD}@${MAIL_HOST}:${MAIL_PORT}
@@ -14,5 +14,5 @@ Volume=davis-var:/var/www/davis/var
 Volume=/mnt/nfs/appdata/dav/webdav:/webdav/public
 
 [Service]
-EnvironmentFile=%E/containers/systemd/davis/.env
+EnvironmentFile=/run/secrets/davis.env
 

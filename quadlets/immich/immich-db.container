@@ -17,5 +17,5 @@ NoNewPrivileges=true
 ShmSize=128m
 
 [Service]
-EnvironmentFile=%E/containers/systemd/immich/.env
+EnvironmentFile=/run/secrets/immich.env
 TimeoutStartSec=900

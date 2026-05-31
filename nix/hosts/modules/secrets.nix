@@ -7,17 +7,15 @@
 
     # TODO: this isn't sustainable...
     secrets = {
-      immich = {
+      "immich.env" = {
         sopsFile = ../../../quadlets/immich/secret.env;
         format = "dotenv";
-        path = "/home/services/.config/containers/systemd/immich/.env";
-        owner = config.users.users.services.name;
+        owner = "immich";
       };
-      davis = {
-        sopsFile = ../../../quadlets/davis/secret.env;
+      "davis.env" = {
+        sopsFile = ../../../quadlets/dav/secret.env;
         format = "dotenv";
-        path = "/home/services/.config/containers/systemd/davis/.env";
-        owner = config.users.users.services.name;
+        owner = "dav";
       };
     };
   };

@@ -58,6 +58,11 @@
       fsType = "nfs";
       options = [ "nfsvers=4.2" "hard" "noatime" "rw" "defaults" ];
     };
+    "/mnt/nfs/media" = {
+      device = "truenas.internal:/mnt/tank/media";
+      fsType = "nfs";
+      options = [ "nfsvers=4.2" "hard" "noatime" "rw" "defaults" ];
+    };
   };
 
   environment.variables = { "EDITOR" = "vim"; };

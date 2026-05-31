@@ -10,7 +10,7 @@ NoNewPrivileges=true
 
 Volume=/mnt/nfs/appdata/caddy:/etc/caddy
  
-Network=services.network
+#Network=services.network
 PublishPort=443:443
 PublishPort=443:443/udp
 PublishPort=80:80

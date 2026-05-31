@@ -1,7 +1,8 @@
 [Container]
 ContainerName=%N
-Network=services.network
+#Network=services.network
 UserNS=keep-id
+PublishPort=9006:1411
 Image=ghcr.io/pocket-id/pocket-id:v2
 Volume=/mnt/nfs/appdata/pocketid/data:/app/data
 Volume=/mnt/nfs/appdata/pocketid/encryption_key:/run/encryption_key:ro

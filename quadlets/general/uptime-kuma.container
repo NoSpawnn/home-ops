@@ -5,11 +5,12 @@ Description=Uptime-Kuma server
 ContainerName=%N
 Image=docker.io/louislam/uptime-kuma:2
 AutoUpdate=registry
+PublishPort=9002:3001
  
 HealthCmd=curl http://127.0.0.1:3001
 UserNS=keep-id
  
-Network=services.network
+#Network=services.network
  
 Volume=%h/localappdata/uptime-kuma:/app/data
  

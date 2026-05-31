@@ -2,17 +2,16 @@
 Description=Immich server
 Requires=immich-db.service immich-redis.service
 
-
 [Container]
 Pod=immich.pod
 ContainerName=%N
 Image=ghcr.io/immich-app/immich-server:release
 NoNewPrivileges=true
 
-EnvironmentFile=%E/containers/systemd/immich/.env
+EnvironmentFile=/run/secrets/immich.env
 Volume=${UPLOAD_LOCATION}:/data:rw
 Volume=/etc/localtime:/etc/localtime:ro
 
 [Service]
-EnvironmentFile=%E/containers/systemd/immich/.env
+EnvironmentFile=/run/secrets/immich.env
 TimeoutStartSec=900
