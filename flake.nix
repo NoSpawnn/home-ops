@@ -62,6 +62,15 @@
             }
           ];
         };
+
+        firewall = lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs.flake-inputs = inputs;
+          modules = [
+            ./machines/metal/firewall
+            sops-nix.nixosModules.sops
+          ];
+        };
       };
 
       devShells = forEachSupportedSystem (
