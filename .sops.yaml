@@ -2,7 +2,7 @@ keys:
   - &me age1nam925v0clssuyafyurygunzpm6h9vddlx75mctqlc8a38q2nf7qd48s6l
 
   - &server_hv-1 age16ze0q6h74qcghw2kth7gmm2htsk94arm7zazf4auzjdmfnqqeyhsfs2q2n
-  - &server_firewall age1knezs5g95sdahmcn3fgy6hexyp9cqjaz9qkd3r237lyp5xfz7gxsfpm0ra
+  - &server_firewall age136uqxznuf3lpja0zuan970mls4f8psl6zet07hvl4dyz43ascg7s0vatt7
 
 creation_rules:
   - path_regex: .*\.enc.json
