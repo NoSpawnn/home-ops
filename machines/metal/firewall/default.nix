@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./secrets/secrets.nix
     ./hardware-configuration.nix
   ];
 
