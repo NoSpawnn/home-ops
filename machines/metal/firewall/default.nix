@@ -15,6 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "firewall";
+  networking.domain = "internal";
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [
@@ -22,8 +23,12 @@
       80
       443
     ];
+    allowedUDPPorts = [
+      67 68
+      53
+    ];
   };
-  networking.networkmanager.enable = true;
+  networking.networkmanager.enable = false;
 
   time.timeZone = "Europe/London";
 
@@ -53,6 +58,26 @@
   services.tailscale = {
     enable = true;
     authKeyFile = "/run/secrets/tailscale_key";
+  };
+networking.interfaces."enp1s0f0".useDHCP = true;
+networking.nat = {
+    enable = true;
+    internalInterfaces = [ "enp1s0f3" ];
+    externalInterface = "enp1s0f0";
+};
+networking.interfaces."enp1s0f3".ipv4.addresses = [
+  { address = "10.10.10.1"; prefixLength = 24; }
+];
+networking.useHostResolvConf = false;
+services.resolved.enable = false;
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      #"domain" = config.networking.domain;
+      "dhcp-range" = [ "enp1s0f3,10.10.10.2,10.10.10.254,24h" ];
+      "interface" = "enp1s0f3";
+      "server" = [ "1.1.1.1" "1.0.0.1" ];
+    };
   };
 
   nix.settings.experimental-features = [
