@@ -20,6 +20,7 @@
 
     firewall = {
       enable = true;
+      trustedInterfaces = [ "tailscale0" ];
       allowedTCPPorts = [
         22
         80
@@ -34,8 +35,8 @@
 
     nat = {
       enable = true;
-      internalInterfaces = [ "enp1s0f3" ];
       externalInterface = "enp1s0f0";
+      internalInterfaces = [ "enp1s0f3" ];
     };
 
     interfaces = {
@@ -79,15 +80,21 @@
   services.openssh.enable = true;
   services.tailscale = {
     enable = true;
-    authKeyFile = "/run/secrets/tailscale_key";
+    authKeyFile = config.sops.secrets.tailscale-key.path;
+    useRoutingFeatures = "server";
+    extraSetFlags = [ "--advertise-routes=10.10.10.150/32" ];
   };
 
   services.resolved.enable = false;
   services.dnsmasq = {
     enable = true;
     settings = {
+      "expand-hosts" = true;
+      "domain" = "internal";
       "dhcp-range" = [ "enp1s0f3,10.10.10.2,10.10.10.254,24h" ];
-      "interface" = "enp1s0f3";
+      "local" = [ "/nospawnn.com/" ];
+      "address" = [ "/nospawnn.com/10.10.10.150" ];
+      "interface" = [ "enp1s0f3" "tailscale0" ];
       "server" = [
         "1.1.1.1"
         "1.0.0.1"

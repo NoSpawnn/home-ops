@@ -10,13 +10,13 @@ creation_rules:
       - age:
           - *me
 
-  - path_regex: .*\.*secret\.(yaml|ini|json|env)$
+  - path_regex: (^|/)hv-1(/|$)
     key_groups:
       - age:
           - *me
           - *server_hv-1
   
-  - path_regex: .*\.secret$
+  - path_regex: (^|/)firewall(/|$)
     key_groups:
       - age:
           - *me

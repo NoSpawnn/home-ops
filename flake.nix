@@ -69,6 +69,18 @@
           modules = [
             ./machines/metal/firewall
             sops-nix.nixosModules.sops
+            quadmanix.nixosModules.quadmanix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.sharedModules = [
+                quadmanix.homeManagerModules.quadmanix
+                sops-nix.homeManagerModules.sops
+              ];
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users = import ./machines/metal/firewall/users/net.nix { };
+            }
           ];
         };
       };
