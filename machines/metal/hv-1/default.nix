@@ -72,10 +72,6 @@
     HandleLidSwitch = "ignore";
   };
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
   virtualisation = {
     containers.enable = true;

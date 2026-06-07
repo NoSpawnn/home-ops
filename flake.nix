@@ -64,6 +64,10 @@
               {
                 home-manager.users = users;
                 users.users.admin = adminUser;
+                nix.settings.experimental-features = [
+                  "nix-command"
+                  "flakes"
+                ];
               }
             ];
 
