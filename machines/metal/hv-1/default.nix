@@ -20,15 +20,6 @@
 
   time.timeZone = "Europe/London";
 
-  users.users = {
-    admin = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" ];
-      packages = with pkgs; [  ];
-      openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ Main" ];
-   };
-  };  
-
   services.nfs.idmapd.settings = {
     General = { Domain = "internal"; };
     Mapping = {
