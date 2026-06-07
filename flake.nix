@@ -37,6 +37,7 @@
 
       mkNixosSystem =
         {
+          machineConfig,
           users ? { },
           baseModules ? [
             sops-nix.nixosModules.sops
@@ -62,6 +63,7 @@
             baseModules
             ++ extraModules
             ++ [
+              machineConfig
               {
                 users.users.admin = adminUser;
                 nix.settings.experimental-features = [
@@ -92,15 +94,11 @@
     {
       nixosConfigurations = {
         hv-1 = mkNixosSystem {
-          extraModules = [
-            ./machines/metal/hv-1
-          ];
+          machineConfig = ./machines/metal/hv-1;
         };
 
         firewall = mkNixosSystem {
-          extraModules = [
-            ./machines/metal/firewall
-          ];
+          machineConfig = ./machines/metal/firewall;
         };
       };
 
