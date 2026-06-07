@@ -29,6 +29,7 @@
       adminUser = {
         isNormalUser = true;
         extraGroups = [ "wheel" ];
+        initialPassword = "changeme";
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ Main"
         ];
