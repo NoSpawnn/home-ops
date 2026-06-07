@@ -27,77 +27,77 @@
 
       localDomain = "internal";
 
-      # TODO: default admin user, move to its own module somewhere. shared between all/most machines
-      adminUser = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-        initialPassword = "changeme";
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ Main"
-        ];
-      };
-
       mkNixosSystem =
-        {
-          machineConfig,
-          users ? { },
-          baseModules ? [
-            sops-nix.nixosModules.sops
-            quadmanix.nixosModules.quadmanix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.sharedModules = [
-                quadmanix.homeManagerModules.quadmanix
-                sops-nix.homeManagerModules.sops
-              ];
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit localDomain;
-                flake-inputs = inputs;
-              };
-            }
-          ],
-          extraModules ? [ ],
-          system ? "x86_64-linux",
-        }:
-        lib.nixosSystem {
-          inherit system;
+        let
+          adminUser = {
+            isNormalUser = true;
+            extraGroups = [ "wheel" ];
+            initialPassword = "changeme";
+            openssh.authorizedKeys.keys = [
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ Main"
+            ];
+          };
+
           specialArgs = {
             inherit localDomain;
             flake-inputs = inputs;
           };
-          modules =
-            baseModules
-            ++ extraModules
-            ++ [
-              machineConfig
-              {
-                users.users.admin = adminUser;
-                nix.settings.experimental-features = [
-                  "nix-command"
-                  "flakes"
-                ];
-              }
+
+          baseHomeManagerConfig = {
+            home-manager.sharedModules = [
+              quadmanix.homeManagerModules.quadmanix
+              sops-nix.homeManagerModules.sops
             ];
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = specialArgs;
+          };
+
+          baseNixSettings = {
+            nix.settings.experimental-features = [
+              "nix-command"
+              "flakes"
+            ];
+            nix.gc = {
+              automatic = true;
+              dates = "weekly";
+              options = "--delete-older-than 7d";
+            };
+            nix.optimise = {
+              automatic = true;
+              dates = "weekly";
+            };
+          };
+        in
+        {
+          machineConfig,
+          baseModules ? [
+            home-manager.nixosModules.home-manager
+            baseHomeManagerConfig
+            quadmanix.nixosModules.quadmanix
+            sops-nix.nixosModules.sops
+          ],
+          system ? "x86_64-linux",
+        }:
+        lib.nixosSystem {
+          inherit specialArgs system;
+          modules = baseModules ++ [
+            machineConfig
+            baseNixSettings
+            { users.users.admin = adminUser; }
+          ];
 
         };
 
       forEachSupportedSystem =
         f:
-        lib.genAttrs
-          [
-            "x86_64-linux"
-            "aarch64-linux"
-            "aarch64-darwin"
-          ]
-          (
-            system:
-            f {
-              inherit system;
-              pkgs = import nixpkgs { inherit system; };
-            }
-          );
+        lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (
+          system:
+          f {
+            inherit system;
+            pkgs = import nixpkgs { inherit system; };
+          }
+        );
     in
     {
       nixosConfigurations = {
