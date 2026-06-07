@@ -21,6 +21,8 @@ in
     ./hardware-configuration.nix
   ];
 
+  home-manager.users = import ./users { };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

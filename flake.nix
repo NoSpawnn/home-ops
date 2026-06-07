@@ -63,7 +63,6 @@
             ++ extraModules
             ++ [
               {
-                home-manager.users = users;
                 users.users.admin = adminUser;
                 nix.settings.experimental-features = [
                   "nix-command"
@@ -93,14 +92,12 @@
     {
       nixosConfigurations = {
         hv-1 = mkNixosSystem {
-          users = import ./machines/metal/hv-1/users { };
           extraModules = [
             ./machines/metal/hv-1
           ];
         };
 
         firewall = mkNixosSystem {
-          users = import ./machines/metal/firewall/users { };
           extraModules = [
             ./machines/metal/firewall
           ];
