@@ -26,12 +26,7 @@
       extraGroups = [ "wheel" ];
       packages = with pkgs; [  ];
       openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7FOHMLoU4IPA6f569wESim6dD0CMQv35wxm7lmZyTZ Main" ];
-    };
-    services = {
-      isNormalUser = true;
-      extraGroups = [ "podman" ];
-      linger = true;
-    };
+   };
   };  
 
   services.nfs.idmapd.settings = {
