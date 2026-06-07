@@ -25,62 +25,69 @@
     let
       inherit (nixpkgs) lib;
 
-      supportedSystems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ];
+      mkNixosSystem =
+        {
+          users ? { },
+          baseModules ? [
+            sops-nix.nixosModules.sops
+            quadmanix.nixosModules.quadmanix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.sharedModules = [
+                quadmanix.homeManagerModules.quadmanix
+                sops-nix.homeManagerModules.sops
+              ];
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs.flake-inputs = inputs;
+            }
+          ],
+          extraModules ? [ ],
+          system ? "x86_64-linux",
+        }:
+        lib.nixosSystem {
+          inherit system;
+          specialArgs.flake-inputs = inputs;
+          modules =
+            baseModules
+            ++ extraModules
+            ++ [
+              {
+                home-manager.users = users;
+              }
+            ];
+
+        };
+
       forEachSupportedSystem =
         f:
-        inputs.nixpkgs.lib.genAttrs supportedSystems (
-          system:
-          f {
-            inherit system;
-            pkgs = import inputs.nixpkgs { inherit system; };
-          }
-        );
+        lib.genAttrs
+          [
+            "x86_64-linux"
+            "aarch64-linux"
+            "aarch64-darwin"
+          ]
+          (
+            system:
+            f {
+              inherit system;
+              pkgs = import nixpkgs { inherit system; };
+            }
+          );
     in
     {
       nixosConfigurations = {
-        hv-1 = lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs.flake-inputs = inputs;
-          modules = [
+        hv-1 = mkNixosSystem {
+          users = import ./machines/metal/hv-1/users { };
+          extraModules = [
             ./machines/metal/hv-1
-            sops-nix.nixosModules.sops
-            quadmanix.nixosModules.quadmanix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.sharedModules = [
-                quadmanix.homeManagerModules.quadmanix
-                sops-nix.homeManagerModules.sops
-              ];
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users = import ./machines/metal/hv-1/users/services.nix { };
-            }
           ];
         };
 
-        firewall = lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs.flake-inputs = inputs;
-          modules = [
+        firewall = mkNixosSystem {
+          users = import ./machines/metal/firewall/users { };
+          extraModules = [
             ./machines/metal/firewall
-            sops-nix.nixosModules.sops
-            quadmanix.nixosModules.quadmanix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.sharedModules = [
-                quadmanix.homeManagerModules.quadmanix
-                sops-nix.homeManagerModules.sops
-              ];
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users = import ./machines/metal/firewall/users/net.nix { };
-            }
           ];
         };
       };
