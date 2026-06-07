@@ -82,7 +82,7 @@
       "expand-hosts" = true;
       "domain" = "internal";
       "dhcp-range" = [ "enp1s0f3,10.10.10.2,10.10.10.254,24h" ];
-      "local" = [ "/nospawnn.com/" ];
+      "local" = [ "/nospawnn.com/" "/internal/" ];
       "address" = [ "/nospawnn.com/10.10.10.150" ];
       "interface" = [ "enp1s0f3" "tailscale0" ];
       "server" = [
