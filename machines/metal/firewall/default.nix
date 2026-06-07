@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  localDomain,
   ...
 }:
 
@@ -28,7 +29,7 @@ in
 
   networking = {
     hostName = "firewall";
-    domain = "internal";
+    domain = localDomain;
 
     firewall = {
       enable = true;
@@ -92,11 +93,11 @@ in
     enable = true;
     settings = {
       "expand-hosts" = true;
-      "domain" = "internal";
+      "domain" = localDomain;
       "dhcp-range" = [ "${lanIface},${dhcpRange.start},${dhcpRange.end},24h" ];
       "local" = [
+        "/${localDomain}/"
         "/nospawnn.com/"
-        "/internal/"
       ];
       "address" = [ "/nospawnn.com/10.10.10.150" ];
       "interface" = [

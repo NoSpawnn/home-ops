@@ -25,6 +25,8 @@
     let
       inherit (nixpkgs) lib;
 
+      localDomain = "internal";
+
       # TODO: default admin user, move to its own module somewhere. shared between all/most machines
       adminUser = {
         isNormalUser = true;
@@ -50,7 +52,10 @@
               ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs.flake-inputs = inputs;
+              home-manager.extraSpecialArgs = {
+                inherit localDomain;
+                flake-inputs = inputs;
+              };
             }
           ],
           extraModules ? [ ],
@@ -58,7 +63,10 @@
         }:
         lib.nixosSystem {
           inherit system;
-          specialArgs.flake-inputs = inputs;
+          specialArgs = {
+            inherit localDomain;
+            flake-inputs = inputs;
+          };
           modules =
             baseModules
             ++ extraModules
