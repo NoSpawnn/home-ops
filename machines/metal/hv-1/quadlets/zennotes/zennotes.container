@@ -1,0 +1,11 @@
+[Container]
+ContainerName=%N
+DropCapability=ALL
+EnvironmentFile=/run/secrets/zennotes.env
+Image=adibhanna/zennotes:latest
+NoNewPrivileges=true
+ReadOnly=true
+Tmpfs=/tmp
+Volume=/mnt/nfs/vault:/workspace
+Volume=/mnt/nfs/appdata/zennotes/data:/data
+Network=services.network

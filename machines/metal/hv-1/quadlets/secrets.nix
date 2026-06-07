@@ -16,6 +16,11 @@
         format = "dotenv";
         owner = "services";
       };
+      "zennotes.env" = {
+        sopsFile = ./zennotes/secret.env;
+        format = "dotenv";
+        owner = "services";
+      };
     };
   };
 }
