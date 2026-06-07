@@ -5,11 +5,6 @@ keys:
   - &server_firewall age136uqxznuf3lpja0zuan970mls4f8psl6zet07hvl4dyz43ascg7s0vatt7
 
 creation_rules:
-  - path_regex: .*\.enc.json
-    key_groups:
-      - age:
-          - *me
-
   - path_regex: (^|/)hv-1(/|$)
     key_groups:
       - age:
