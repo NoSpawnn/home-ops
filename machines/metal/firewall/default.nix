@@ -5,6 +5,16 @@
   ...
 }:
 
+let
+  wanIface = "enp1s0f0";
+  lanIface = "enp1s0f3";
+
+  lanGatewayAddress = "10.10.10.1";
+  dhcpRange = {
+    start = "10.10.10.2";
+    end = "10.10.10.254";
+  };
+in
 {
   imports = [
     ./secrets/secrets.nix
@@ -35,16 +45,16 @@
 
     nat = {
       enable = true;
-      externalInterface = "enp1s0f0";
-      internalInterfaces = [ "enp1s0f3" ];
+      externalInterface = wanIface;
+      internalInterfaces = [ lanIface ];
     };
 
     interfaces = {
-      "enp1s0f0".useDHCP = true;
+      "${wanIface}".useDHCP = true;
 
-      "enp1s0f3".ipv4.addresses = [
+      "${lanIface}".ipv4.addresses = [
         {
-          address = "10.10.10.1";
+          address = lanGatewayAddress;
           prefixLength = 24;
         }
       ];
@@ -81,10 +91,16 @@
     settings = {
       "expand-hosts" = true;
       "domain" = "internal";
-      "dhcp-range" = [ "enp1s0f3,10.10.10.2,10.10.10.254,24h" ];
-      "local" = [ "/nospawnn.com/" "/internal/" ];
+      "dhcp-range" = [ "${lanIface},${dhcpRange.start},${dhcpRange.end},24h" ];
+      "local" = [
+        "/nospawnn.com/"
+        "/internal/"
+      ];
       "address" = [ "/nospawnn.com/10.10.10.150" ];
-      "interface" = [ "enp1s0f3" "tailscale0" ];
+      "interface" = [
+        lanIface
+        "tailscale0"
+      ];
       "server" = [
         "1.1.1.1"
         "1.0.0.1"
