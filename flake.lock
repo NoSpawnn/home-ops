@@ -44,11 +44,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780233969,
-        "narHash": "sha256-6i3IqTKz+2zfplKVO7kmDbvdFt3twoDnRX0AP+fj0YM=",
+        "lastModified": 1780939400,
+        "narHash": "sha256-ITs0In9Wi2i96YubboG8IGP1ZH/z954epHR+++KGtP0=",
         "owner": "NoSpawnn",
         "repo": "quadmanix",
-        "rev": "38ef1c56a64db8abbb3c6d2048a3f1dd0233ef76",
+        "rev": "d415624a3ff94373ad74fa33f50eda2dda06f1ae",
         "type": "github"
       },
       "original": {
