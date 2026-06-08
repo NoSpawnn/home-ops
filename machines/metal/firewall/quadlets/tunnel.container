@@ -5,10 +5,9 @@ Description=Cloudflare Tunnel
 ContainerName=%N
 Image=docker.io/cloudflare/cloudflared:latest
 Exec=tunnel --no-autoupdate run
-Environment=TUNNEL_TOKEN=${CF_TOKEN}
+EnvironmentFile=/run/secrets/cf-creds
 
 [Service]
-EnvironmentFile=/run/secrets/cf-creds
 Restart=always
 
 [Install]
